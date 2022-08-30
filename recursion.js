@@ -5,11 +5,14 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 const factorial = function(n) {
+    return n ===0 ? 1: n * factorial(n-1)
 };
+
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 const sum = function(array) {
+    return (array.length === 0) ? 0 : array[0] + sum(array.slice(1));
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
@@ -20,18 +23,42 @@ const arraySum = function(array) {
 // 4. Check if a number is even.
 // isEven(6) // true
 // isEven(111) // false
-const isEven = function(n) {
+const isEven = function (n){
+    if(n === 0) return true;
+    if(n === 1) return false;
+    return isEven(n-2);
+}
+
+//Doing this with recursion is a waste of resources and very inefficient it should be done like this.
+//Don't even try to argue the modulo solution with me Bitwise is the most efficient solution.
+const isEvenTheRightWay = function(n) {
+    return !(n & 1);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 const sumBelow = function(n) {
+    if(n===1) return 1
+    return n + sumBelow(n-1)
 };
+
+//The right way to do this
+const sumBelowTheRightWay = function (n){
+    return (n * (n +1)) / 2;
+}
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
+
 const range = function(x, y) {
+    if (x - y === 0) {
+        return [x];
+    } else {
+        const numbers = range(x + 1, y);
+        numbers.unshift(x);
+        return numbers;
+    }
 };
 
 // 7. Compute the exponent of a number.
@@ -40,6 +67,10 @@ const range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 const exponent = function(base, exp) {
+    if (exp === 0) return 1;
+    let result = base;
+    result = result * exponent(base, exp - 1)
+    return result
 };
 
 // 8. Determine if a number is a power of two.
